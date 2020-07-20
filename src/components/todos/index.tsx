@@ -71,7 +71,7 @@ const Todos: FC<Iprops> = (props) => {
                 You have 6 pending tasks <b>today</b>
               </Fragment>
             ) : (
-              'no pending task'
+              <small className="bold f-13">no pending task available</small>
             )}
           </div>
           <div className="buckets">
