@@ -1,11 +1,13 @@
-import React from 'react'
-import DatePicker from 'react-datepicker'
-
+import React, { ChangeEvent, MouseEvent } from 'react'
+import { IState } from './types'
 type Iprops = {
   onClose: () => void
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onSubmit: (e: MouseEvent) => void
+  stateProps: IState
 }
 const CreateTodo = (props: Iprops) => {
-  const { onClose } = props
+  const { onClose, onChange, onSubmit, stateProps } = props
   return (
     <div className="todo-modal">
       <div className="m-body">
@@ -18,11 +20,25 @@ const CreateTodo = (props: Iprops) => {
         <div className="todo-form">
           <form action="" autoComplete="off">
             <div className="f-group">
-              <textarea placeholder="Add a nice title" className="form-input"></textarea>
+              <textarea
+                placeholder="Add a nice title"
+                className="form-input"
+                name="title"
+                onChange={onChange}
+              >
+                {stateProps.title}
+              </textarea>
             </div>
             <div className="f-group">
               <label>Select Date</label>
-              <input type="date" placeholder="select date" className="date" />
+              <input
+                type="date"
+                placeholder="select date"
+                className="date"
+                name="date"
+                onChange={onChange}
+                value={stateProps.date}
+              />
             </div>
             <div className="f-group">
               <label>Set Bucket</label>
@@ -42,7 +58,7 @@ const CreateTodo = (props: Iprops) => {
               </div>
             </div>
             <div className="f-group">
-              <button type="button" className="btn save-btn">
+              <button type="button" className="btn save-btn" onClick={onSubmit}>
                 save
               </button>
             </div>
