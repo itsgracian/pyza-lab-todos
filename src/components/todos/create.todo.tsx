@@ -20,7 +20,21 @@ const CreateTodo = ()=>{
                         </div>
                         <div className="f-group">
                             <label>Set Bucket</label>
-                            
+                            <div className="categories cat-form">
+                            <div className="category">All</div>
+                            <div className="category">Chores</div>
+                            <div className="category">Material Study</div>
+                            </div>
+                            <div className="new-bucket">
+                                <label>Add new bucket</label>
+                                <div className="new-bucket-input">
+                                <input type="text" placeholder="eg. Trip Plans"/>
+                                <button type="button" className="btn">+&nbsp;add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="f-group">
+                            <button type="button" className="btn save-btn">save</button>
                         </div>
                     </form>
                 </div>
