@@ -1,11 +1,16 @@
 import React from 'react';
 import accept from '../../assets/image/accept.svg';
-const ViewTodos = ()=>{
+
+type Iprops = {
+    onHandleModal: ()=>void;
+}
+const ViewTodos = (props:Iprops)=>{
+    const { onHandleModal } = props;
     return(
         <div className="view-todos">
             <div className="todo-items">
                 <div className="add">
-                    <button>+ add task</button>
+                    <button onClick={onHandleModal}>+ add task</button>
                 </div>
                 <div className="items">
                     <div className="name item-property">Take backy's car for watch</div>

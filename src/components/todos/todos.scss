@@ -122,4 +122,79 @@
             }
         }
     }
+    .todo-modal{
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        background: $blackRGB;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .m-body{
+            width: 25%;
+            background: $white;
+            padding: 35px;
+            border-radius: 10px;
+            .m-header{
+                font-weight: bold;
+                text-transform: capitalize;
+                position: relative;
+                .name{
+                    font-size: 24px;
+                    line-height: 33px;
+                }
+                .close{
+                    position: absolute;
+                    right: 0;
+                    cursor: pointer;
+                    border: none;
+                    background: none;
+                    outline: none;
+                    box-shadow: none;
+                    top: 0;
+                }
+            }
+            .todo-form{
+                position: relative;
+                width: 100%;
+                margin-top: 3rem;
+                .f-group{
+                    margin-top: 1.5rem;
+                    margin-bottom: 1.5rem;
+                    position: relative;
+                    margin-right: 1rem;
+                }
+                label{
+                    font-weight: bold;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                }
+                input, .form-input{
+                    font-family: 'Open Sans', sans-serif;
+                    background: $f6;
+                    border: none;
+                    border-radius: 5px;
+                    outline: none;
+                    width: 100%;
+                }
+                input{
+                    height: 40px;
+                    padding: 8px;      
+                    padding-left: 15px;                 
+                }
+                .form-input{
+                    height: 58px;         
+                    padding: 10px;
+                    padding-top: 20px;
+                }
+                .date{
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
 }
