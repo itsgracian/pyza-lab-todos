@@ -1,6 +1,7 @@
 export const CREATE = 'ADD_TODO';
 export const VIEW = 'VIEW_ALL_TODOS';
 export const ERRORS = 'TODO_ERRORS';
+export const TODOS = 'TODOS';
 export interface ICreateTodoParam{
     title: string;
     id: string;
@@ -28,7 +29,7 @@ interface IErrors {
 
 export interface IinitialState{
     todos: Array<ICreateTodoParam>;
-    message: string;
-    errors: string;
+    message: string | null;
+    errors: string | null;
 }
 export type ITodoTypes = ICreate | IView | IErrors;

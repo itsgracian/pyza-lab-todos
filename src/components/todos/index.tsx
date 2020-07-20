@@ -1,19 +1,20 @@
-import React, { useState, ChangeEvent, MouseEvent, FC } from 'react'
+import React, { useState, ChangeEvent, MouseEvent, FC, useEffect } from 'react'
 import ViewTodos from './view.todos'
 import { IState } from './types'
 import './todos.scss'
 import CreateTodo from './create.todo'
 import { connect, ConnectedProps } from 'react-redux'
-import { addTodo } from '../../redux/todos/actions'
+import { addTodo, viewAllTodos } from '../../redux/todos/actions'
 import { AppState } from '../../redux'
-
+import { ICreateTodoParam } from '../../redux/todos/types'
 const mapState = (state: AppState) => ({
   todoReducer: state.todos,
 })
-const connector = connect(mapState, { addTodo })
+const connector = connect(mapState, { addTodo, viewAllTodos })
 type Iprops = ConnectedProps<typeof connector>
 const Todos: FC<Iprops> = (props) => {
   const [state, setState] = useState<IState>({ open: false, title: '', category: '', date: '' })
+  const { todos }: { todos: Array<ICreateTodoParam> } = props.todoReducer
   const onHandleModal = () => {
     setState({ ...state, open: !state.open })
   }
@@ -26,7 +27,16 @@ const Todos: FC<Iprops> = (props) => {
   }
   const onSubmit = (e: MouseEvent) => {
     e.preventDefault()
+    const { title, date, category } = state
+    props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category })
   }
+  useEffect(() => {
+    const fetch = () => {
+      props.viewAllTodos()
+    }
+    fetch()
+    //eslint-disable-next-line
+  }, [])
   return (
     <div className="todos">
       {state.open && (
@@ -56,7 +66,7 @@ const Todos: FC<Iprops> = (props) => {
           </div>
         </div>
       </div>
-      <ViewTodos onHandleModal={onHandleModal} />
+      <ViewTodos onHandleModal={onHandleModal} todos={todos} />
     </div>
   )
 }
