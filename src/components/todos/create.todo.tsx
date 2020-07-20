@@ -1,13 +1,15 @@
-import React, { ChangeEvent, MouseEvent } from 'react'
-import { IState } from './types'
+import React, { ChangeEvent, MouseEvent } from 'react';
+import { IState } from './types';
+import { IBuckets } from '../../redux/buckets/types';
 type Iprops = {
-  onClose: () => void
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onSubmit: (e: MouseEvent) => void
-  stateProps: IState
-}
+  onClose: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onSubmit: (e: MouseEvent) => void;
+  stateProps: IState;
+  buckets: Array<IBuckets>;
+};
 const CreateTodo = (props: Iprops) => {
-  const { onClose, onChange, onSubmit, stateProps } = props
+  const { onClose, onChange, onSubmit, stateProps, buckets } = props;
   return (
     <div className="todo-modal">
       <div className="m-body">
@@ -42,11 +44,19 @@ const CreateTodo = (props: Iprops) => {
             </div>
             <div className="f-group">
               <label>Set Bucket</label>
-              <div className="categories cat-form">
-                <div className="category">All</div>
-                <div className="category">Chores</div>
-                <div className="category">Material Study</div>
-              </div>
+              {buckets && buckets.length > 0 ? (
+                <div className="categories cat-form">
+                  {buckets.map((bucket, i) => (
+                    <div key={i} className="category">
+                      {bucket}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <small>buckets not found</small>
+                </div>
+              )}
               <div className="new-bucket">
                 <label>Add new bucket</label>
                 <div className="new-bucket-input">
@@ -66,6 +76,6 @@ const CreateTodo = (props: Iprops) => {
         </div>
       </div>
     </div>
-  )
-}
-export default CreateTodo
+  );
+};
+export default CreateTodo;

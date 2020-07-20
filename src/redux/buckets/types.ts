@@ -21,5 +21,9 @@ interface IErrors{
     type: typeof ERRORS;
     payload: string;
 }
-
+export interface IinitialState{
+    buckets: Array<IBuckets> | null;
+    errors: string | null;
+    message: string | null;
+}
 export type IBucketType = IView | ICreate | IErrors;

@@ -1,13 +1,13 @@
-import React from 'react'
-import accept from '../../assets/image/accept.svg'
-import { ICreateTodoParam } from '../../redux/todos/types'
+import React from 'react';
+import accept from '../../assets/image/accept.svg';
+import { ICreateTodoParam } from '../../redux/todos/types';
 
 type Iprops = {
-  onHandleModal: () => void
-  todos: Array<ICreateTodoParam>
-}
+  onHandleModal: () => void;
+  todos: Array<ICreateTodoParam>;
+};
 const ViewTodos = (props: Iprops) => {
-  const { onHandleModal, todos } = props
+  const { onHandleModal, todos } = props;
   return (
     <div className="view-todos">
       <div className="todo-items">
@@ -28,6 +28,6 @@ const ViewTodos = (props: Iprops) => {
         </div>
       </div>
     </div>
-  )
-}
-export default ViewTodos
+  );
+};
+export default ViewTodos;

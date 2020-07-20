@@ -1,6 +1,6 @@
-import { CREATE, VIEW, IBucketType, ERRORS } from './types';
+import { CREATE, VIEW, IBucketType, ERRORS, IinitialState } from './types';
 
-const initialState = {};
+const initialState:IinitialState = {buckets: [], message:null, errors: null };
 export const bucketReducer = (state=initialState, {type, payload}: IBucketType)=>{
     switch(type){
         case CREATE:

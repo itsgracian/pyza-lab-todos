@@ -9,7 +9,7 @@ export const viewAllBucket = ():AppThunk=>(dispatch)=>{
         dispatch({type: VIEW, payload: convert});
     }})
 }
-export const addBuckets = (name: string):AppThunk=>(dispatch)=>{
+export const addBucket = (name: string):AppThunk=>(dispatch)=>{
     actionHandler({errorType: ERRORS, data:null, dispatch, cb:()=>{
         const findBucketStorage: string | any = getItemsFromStorage({key: BUCKETS});
         const find:Array<string> = JSON.parse(findBucketStorage);
