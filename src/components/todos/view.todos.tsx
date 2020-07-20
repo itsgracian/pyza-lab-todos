@@ -1,49 +1,55 @@
-import React from 'react';
-import accept from '../../assets/image/accept.svg';
+import React from 'react'
+import accept from '../../assets/image/accept.svg'
 
 type Iprops = {
-    onHandleModal: ()=>void;
+  onHandleModal: () => void
 }
-const ViewTodos = (props:Iprops)=>{
-    const { onHandleModal } = props;
-    return(
-        <div className="view-todos">
-            <div className="todo-items">
-                <div className="add">
-                    <button onClick={onHandleModal}>+ add task</button>
-                </div>
-                <div className="items">
-                    <div className="name item-property">Take backy's car for watch</div>
-                    <div className="date item-property">{new Date().toDateString()}</div>
-                    <div className="category">
-                        <div className="category-name">chores</div>
-                    </div>
-                    <div className="accept">
-                        <div className="icon"><img src={accept} alt={accept} /></div>
-                    </div>
-                </div>
-                <div className="items">
-                    <div className="name item-property">Take backy's car for watch</div>
-                    <div className="date item-property">{new Date().toDateString()}</div>
-                    <div className="category">
-                        <div className="category-name">chores</div>
-                    </div>
-                    <div className="accept">
-                        <div className="icon"><img src={accept} alt={accept} /></div>
-                    </div>
-                </div>
-                <div className="items">
-                    <div className="name item-property">Take backy's car for watch</div>
-                    <div className="date item-property">{new Date().toDateString()}</div>
-                    <div className="category">
-                        <div className="category-name">chores</div>
-                    </div>
-                    <div className="accept">
-                        <div className="icon"><img src={accept} alt={accept} /></div>
-                    </div>
-                </div>
-            </div>
+const ViewTodos = (props: Iprops) => {
+  const { onHandleModal } = props
+  return (
+    <div className="view-todos">
+      <div className="todo-items">
+        <div className="add">
+          <button onClick={onHandleModal}>+ add task</button>
         </div>
-    )
+        <div className="items">
+          <div className="name item-property">Take backy's car for watch</div>
+          <div className="date item-property">{new Date().toDateString()}</div>
+          <div className="category">
+            <div className="category-name">chores</div>
+          </div>
+          <div className="accept">
+            <div className="icon">
+              <img src={accept} alt={accept} />
+            </div>
+          </div>
+        </div>
+        <div className="items">
+          <div className="name item-property">Take backy's car for watch</div>
+          <div className="date item-property">{new Date().toDateString()}</div>
+          <div className="category">
+            <div className="category-name">chores</div>
+          </div>
+          <div className="accept">
+            <div className="icon">
+              <img src={accept} alt={accept} />
+            </div>
+          </div>
+        </div>
+        <div className="items">
+          <div className="name item-property">Take backy's car for watch</div>
+          <div className="date item-property">{new Date().toDateString()}</div>
+          <div className="category">
+            <div className="category-name">chores</div>
+          </div>
+          <div className="accept">
+            <div className="icon">
+              <img src={accept} alt={accept} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
-export default ViewTodos;
+export default ViewTodos
