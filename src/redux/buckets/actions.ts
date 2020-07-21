@@ -14,9 +14,12 @@ export const addBucket = (name: string):AppThunk=>(dispatch)=>{
         const findBucketStorage: string | any = getItemsFromStorage({key: BUCKETS});
         const find:Array<string> = JSON.parse(findBucketStorage);
         if(find && find.length>0){
-            //
-            find.push(name);
-            storeItems({key: BUCKETS, value: JSON.stringify(find)});
+            // avoid duplicate category
+            const check = find.find(item=> item.toLowerCase()===name.toLowerCase());
+            if(!check){
+                find.push(name);
+                storeItems({key: BUCKETS, value: JSON.stringify(find)});
+            }
         }else{
             storeItems({key:BUCKETS, value:JSON.stringify([name])});
         }
