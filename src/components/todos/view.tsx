@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import accept from '../../assets/image/accept.svg';
 import { ICreateTodoParam } from '../../redux/todos/types';
-import { AiOutlineFrown } from 'react-icons/ai';
+import { AiOutlineFrown, AiFillCheckCircle } from 'react-icons/ai';
 type Iprops = {
   onHandleModal: () => void;
   todos: Array<ICreateTodoParam>;
@@ -9,6 +8,7 @@ type Iprops = {
 };
 const ViewTodos = (props: Iprops) => {
   const { onHandleModal, todos, onMarkAsDone } = props;
+  const accept = 'https://res.cloudinary.com/heza/image/upload/v1595325050/challenges/accept_kjq4mz.svg';
   return (
     <div className="view-todos">
       <div className="todo-items">
@@ -26,7 +26,7 @@ const ViewTodos = (props: Iprops) => {
                 </div>
                 <div className="accept">
                   <div className="icon" onClick={() => onMarkAsDone(item.id)}>
-                    {item.done && <img src={accept} alt={accept} />}
+                    {item.done && <AiFillCheckCircle/>}
                   </div>
                 </div>
               </div>

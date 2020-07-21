@@ -1,7 +1,7 @@
 @import '../../assets/scss/color.scss';
 .todos{
     position: relative;
-    background: url('../../assets/image/vector-1.svg') no-repeat;
+    background: url('https://res.cloudinary.com/heza/image/upload/v1595325050/challenges/vector-1_bsvpzz.svg') no-repeat;
     background-size: cover;
     min-height: 100vh;
     .container{
@@ -164,6 +164,10 @@
                             height: 100%;
                             border-radius: 100%;
                         }
+                        svg{
+                            font-size: 30px;
+                            color: $f53;
+                        }
                     }
                   }
             }
@@ -203,6 +207,9 @@
                     outline: none;
                     box-shadow: none;
                     top: 0;
+                    svg{
+                        font-size: 30px;
+                    }
                 }
             }
             .todo-form{

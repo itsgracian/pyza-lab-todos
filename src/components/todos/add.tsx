@@ -1,6 +1,7 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 import { IState } from './types';
 import { IBuckets } from '../../redux/buckets/types';
+import { AiFillCloseCircle } from 'react-icons/ai';
 type Iprops = {
   onClose: () => void;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -17,8 +18,8 @@ const CreateTodo = (props: Iprops) => {
       <div className="m-body">
         <div className="m-header">
           <div className="name">Add new task</div>
-          <button type="button" className="close">
-            <img src={require('../../assets/image/close.svg')} alt="" onClick={onClose} />
+          <button type="button" className="close" onClick={onClose}>
+            <AiFillCloseCircle/>
           </button>
         </div>
         <div className="todo-form">
