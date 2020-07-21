@@ -4,10 +4,11 @@ import { ICreateTodoParam } from '../../redux/todos/types';
 type Iprops = {
   buckets: IBuckets[];
   todos: ICreateTodoParam[];
+  onFilterByCategory: (category: string) => void;
 };
 
 const TodoHeader = (props: Iprops) => {
-  const { buckets, todos } = props;
+  const { buckets, todos, onFilterByCategory } = props;
   return (
     <div className="todo-header">
       <div className="container">
@@ -30,7 +31,11 @@ const TodoHeader = (props: Iprops) => {
             <Fragment>
               <div className="categories">
                 {buckets.map((item, i) => (
-                  <div className="category" key={i}>
+                  <div
+                    className="category"
+                    key={i}
+                    onClick={() => onFilterByCategory(String(item))}
+                  >
                     {item}
                   </div>
                 ))}

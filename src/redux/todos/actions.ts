@@ -44,4 +44,15 @@ export const markAsDone = (id: string):AppThunk=>(dispatch)=>{
      dispatch(viewAllTodos());
     }
   }})
+};
+
+export const filterByCategory = (category: string):AppThunk=>(dispatch)=>{
+  actionHandler({errorType:ERRORS, data:null, dispatch, cb:()=>{
+    const data: any = getItemsFromStorage({key: TODOS});
+    const convert:Array<ICreateTodoParam>= JSON.parse(data);
+    if(convert && convert.length>0){
+      const filter = convert.filter(item=>item.category === category);
+     dispatch({type: VIEW, payload: filter});
+    }
+  }});
 }

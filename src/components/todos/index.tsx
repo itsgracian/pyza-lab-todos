@@ -4,7 +4,7 @@ import { IState } from './types';
 import './todos.scss';
 import CreateTodo from './add';
 import { connect, ConnectedProps } from 'react-redux';
-import { addTodo, viewAllTodos, markAsDone } from '../../redux/todos/actions';
+import { addTodo, viewAllTodos, markAsDone, filterByCategory } from '../../redux/todos/actions';
 import { AppState } from '../../redux';
 import { ICreateTodoParam } from '../../redux/todos/types';
 import { viewAllBucket, addBucket } from '../../redux/buckets/actions';
@@ -20,6 +20,7 @@ const connector = connect(mapState, {
   viewAllBucket,
   addBucket,
   markAsDone,
+  filterByCategory,
 });
 type Iprops = ConnectedProps<typeof connector>;
 const Todos: FC<Iprops> = (props) => {
@@ -95,6 +96,10 @@ const Todos: FC<Iprops> = (props) => {
   const onMarkAsDone = (id: string) => {
     props.markAsDone(id);
   };
+
+  const onFilterByCategory = (category: string) => {
+    props.filterByCategory(category);
+  };
   return (
     <div className="todos">
       {state.open && (
@@ -108,7 +113,7 @@ const Todos: FC<Iprops> = (props) => {
           onSelectCategory={onSelectCategory}
         />
       )}
-      <TodoHeader todos={todos} buckets={buckets} />
+      <TodoHeader todos={todos} buckets={buckets} onFilterByCategory={onFilterByCategory} />
       <ViewTodos onHandleModal={onHandleModal} todos={todos} onMarkAsDone={onMarkAsDone} />
     </div>
   );
