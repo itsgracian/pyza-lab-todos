@@ -31,14 +31,16 @@ const Todos: FC<Iprops> = (props) => {
   }: { todos: Array<ICreateTodoParam>; errors: string; message: string } = props.todoReducer;
   const {
     buckets,
-    errors: bucketErrors,
   }: { buckets: Array<IBuckets>; errors: string } = props.bucketReducer;
+
   const clearState = () => {
     setState({ ...state, title: '', category: '', date: '', bucket: '', open: false });
   };
+
   const onHandleModal = () => {
     setState({ ...state, open: !state.open });
   };
+
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
@@ -46,11 +48,13 @@ const Todos: FC<Iprops> = (props) => {
   const onGenerateUuid = (): string => {
     return `${Math.random() * 1000}`;
   };
+
   const onSubmit = (e: MouseEvent) => {
     e.preventDefault();
     const { title, date, category } = state;
     props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category });
   };
+
   useEffect(() => {
     const fetch = () => {
       props.viewAllTodos();
@@ -59,17 +63,20 @@ const Todos: FC<Iprops> = (props) => {
     fetch();
     //eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     if (todoErrors || todoMessage) {
       clearState();
     }
     //eslint-disable-next-line
   }, [props.todoReducer]);
+
   const onSelectCategory = (value: string) => {
     if (value && value !== '') {
       setState({ ...state, category: value });
     }
   };
+
   const onSaveBucket = () => {
     if (state.bucket && state.bucket != '') {
       setState({ ...state, bucket: '' });
