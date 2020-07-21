@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect, ChangeEvent } from 'react';
 import { IBuckets } from '../../redux/buckets/types';
 import { ICreateTodoParam } from '../../redux/todos/types';
 import { convertDate } from '../../redux/helpers/action';
-
 type Iprops = {
   buckets: IBuckets[];
   todos: ICreateTodoParam[];
