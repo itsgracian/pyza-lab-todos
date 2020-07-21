@@ -5,10 +5,11 @@ type Iprops = {
   buckets: IBuckets[];
   todos: ICreateTodoParam[];
   onFilterByCategory: (category: string) => void;
+  onViewAll: () => void;
 };
 
 const TodoHeader = (props: Iprops) => {
-  const { buckets, todos, onFilterByCategory } = props;
+  const { buckets, todos, onFilterByCategory, onViewAll } = props;
   return (
     <div className="todo-header">
       <div className="container">
@@ -30,6 +31,9 @@ const TodoHeader = (props: Iprops) => {
           {buckets && buckets.length > 0 ? (
             <Fragment>
               <div className="categories">
+                <div className="category all-color" onClick={onViewAll}>
+                  All
+                </div>
                 {buckets.map((item, i) => (
                   <div
                     className="category"

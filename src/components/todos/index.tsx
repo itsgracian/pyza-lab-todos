@@ -100,6 +100,9 @@ const Todos: FC<Iprops> = (props) => {
   const onFilterByCategory = (category: string) => {
     props.filterByCategory(category);
   };
+  const onViewAll = () => {
+    props.viewAllTodos();
+  };
   return (
     <div className="todos">
       {state.open && (
@@ -113,7 +116,12 @@ const Todos: FC<Iprops> = (props) => {
           onSelectCategory={onSelectCategory}
         />
       )}
-      <TodoHeader todos={todos} buckets={buckets} onFilterByCategory={onFilterByCategory} />
+      <TodoHeader
+        todos={todos}
+        buckets={buckets}
+        onFilterByCategory={onFilterByCategory}
+        onViewAll={onViewAll}
+      />
       <ViewTodos onHandleModal={onHandleModal} todos={todos} onMarkAsDone={onMarkAsDone} />
     </div>
   );
