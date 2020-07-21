@@ -40,8 +40,7 @@ export const markAsDone = (id: string):AppThunk=>(dispatch)=>{
         newData.push(item);
       });
      storeItems({key: TODOS, value: JSON.stringify(newData)});
-     dispatch({type: MARK_DONE, payload: 'marked'});
-     dispatch(viewAllTodos());
+     dispatch({type: MARK_DONE, payload: id });
     }
   }})
 };
