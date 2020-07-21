@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { IAction, IStoreItem } from './types';
 export const actionHandler = ({errorType, data, dispatch, cb }:IAction)=>{
     try {

@@ -7,6 +7,7 @@ export interface ICreateTodoParam{
     id: string;
     category: string;
     date: Date;
+    done: boolean;
 }
 
 interface ICreate{

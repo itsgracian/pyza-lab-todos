@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, MouseEvent, FC, useEffect, Fragment } from 'react';
+import React, { useState, ChangeEvent, MouseEvent, FC, useEffect } from 'react';
 import ViewTodos from './view';
 import { IState } from './types';
 import './todos.scss';
@@ -53,7 +53,7 @@ const Todos: FC<Iprops> = (props) => {
     e.preventDefault();
     const { title, date, category } = state;
     if (isEmpty(title) && isEmpty(date) && isEmpty(category)) {
-      props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category });
+      props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category, done: false });
     }
   };
 
@@ -80,7 +80,7 @@ const Todos: FC<Iprops> = (props) => {
   };
 
   const onSaveBucket = () => {
-    if (state.bucket && state.bucket != '') {
+    if (state.bucket && state.bucket !== '') {
       setState({ ...state, bucket: '' });
       props.addBucket(state.bucket);
     }

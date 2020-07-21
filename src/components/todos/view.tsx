@@ -25,7 +25,7 @@ const ViewTodos = (props: Iprops) => {
                 </div>
                 <div className="accept">
                   <div className="icon">
-                    <img src={accept} alt={accept} />
+                    {item.done && <img src={accept} alt={accept} />}
                   </div>
                 </div>
               </div>
