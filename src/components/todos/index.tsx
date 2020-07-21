@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, MouseEvent, FC, useEffect, Fragment } from 'react';
-import ViewTodos from './view.todos';
+import ViewTodos from './view';
 import { IState } from './types';
 import './todos.scss';
-import CreateTodo from './create.todo';
+import CreateTodo from './add';
 import { connect, ConnectedProps } from 'react-redux';
 import { addTodo, viewAllTodos } from '../../redux/todos/actions';
 import { AppState } from '../../redux';
@@ -29,9 +29,7 @@ const Todos: FC<Iprops> = (props) => {
     errors: todoErrors,
     message: todoMessage,
   }: { todos: Array<ICreateTodoParam>; errors: string; message: string } = props.todoReducer;
-  const {
-    buckets,
-  }: { buckets: Array<IBuckets>; errors: string } = props.bucketReducer;
+  const { buckets }: { buckets: Array<IBuckets>; errors: string } = props.bucketReducer;
 
   const clearState = () => {
     setState({ ...state, title: '', category: '', date: '', bucket: '', open: false });
@@ -48,11 +46,15 @@ const Todos: FC<Iprops> = (props) => {
   const onGenerateUuid = (): string => {
     return `${Math.random() * 1000}`;
   };
-
+  const isEmpty = (value: string) => {
+    return typeof value === 'string' && value.trim().length !== 0;
+  };
   const onSubmit = (e: MouseEvent) => {
     e.preventDefault();
     const { title, date, category } = state;
-    props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category });
+    if (isEmpty(title) && isEmpty(date) && isEmpty(category)) {
+      props.addTodo({ id: onGenerateUuid(), title, date: new Date(date), category });
+    }
   };
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const Todos: FC<Iprops> = (props) => {
   }, [props.todoReducer]);
 
   const onSelectCategory = (value: string) => {
-    if (value && value !== '') {
+    if (value && isEmpty(value)) {
       setState({ ...state, category: value });
     }
   };
