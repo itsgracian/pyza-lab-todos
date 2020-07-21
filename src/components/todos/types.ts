@@ -3,4 +3,5 @@ export type IState = {
     title: string;
     category: string;
     date: string;
+    bucket: string;
 }

@@ -243,4 +243,23 @@
             }
         }
     }
+    .not-found{
+        display: flex;
+        width: 100%;
+        background: $white;
+        padding: 30px;
+        border-radius: 10px;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        svg{
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+    }
+    .green-color{
+        background: $green !important;
+        color: $white !important;
+    }
 }

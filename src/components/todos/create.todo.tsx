@@ -7,9 +7,11 @@ type Iprops = {
   onSubmit: (e: MouseEvent) => void;
   stateProps: IState;
   buckets: Array<IBuckets>;
+  onAddBucket: () => void;
+  onSelectCategory: (value: string) => void;
 };
 const CreateTodo = (props: Iprops) => {
-  const { onClose, onChange, onSubmit, stateProps, buckets } = props;
+  const { onClose, onChange, onSubmit, stateProps, buckets, onAddBucket, onSelectCategory } = props;
   return (
     <div className="todo-modal">
       <div className="m-body">
@@ -47,7 +49,13 @@ const CreateTodo = (props: Iprops) => {
               {buckets && buckets.length > 0 ? (
                 <div className="categories cat-form">
                   {buckets.map((bucket, i) => (
-                    <div key={i} className="category">
+                    <div
+                      key={i}
+                      className={`category ${
+                        stateProps.category === String(bucket) && 'green-color'
+                      }`}
+                      onClick={() => onSelectCategory(String(bucket))}
+                    >
                       {bucket}
                     </div>
                   ))}
@@ -60,8 +68,13 @@ const CreateTodo = (props: Iprops) => {
               <div className="new-bucket">
                 <label>Add new bucket</label>
                 <div className="new-bucket-input">
-                  <input type="text" placeholder="eg. Trip Plans" />
-                  <button type="button" className="btn">
+                  <input
+                    type="text"
+                    placeholder="eg. Trip Plans"
+                    name="bucket"
+                    onChange={onChange}
+                  />
+                  <button type="button" className="btn" onClick={onAddBucket}>
                     +&nbsp;add
                   </button>
                 </div>

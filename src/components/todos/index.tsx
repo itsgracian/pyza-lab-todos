@@ -9,6 +9,7 @@ import { AppState } from '../../redux';
 import { ICreateTodoParam } from '../../redux/todos/types';
 import { viewAllBucket, addBucket } from '../../redux/buckets/actions';
 import { IBuckets } from '../../redux/buckets/types';
+import TodoHeader from './header';
 const mapState = (state: AppState) => ({
   todoReducer: state.todos,
   bucketReducer: state.buckets,
@@ -16,15 +17,25 @@ const mapState = (state: AppState) => ({
 const connector = connect(mapState, { addTodo, viewAllTodos, viewAllBucket, addBucket });
 type Iprops = ConnectedProps<typeof connector>;
 const Todos: FC<Iprops> = (props) => {
-  const [state, setState] = useState<IState>({ open: false, title: '', category: '', date: '' });
+  const [state, setState] = useState<IState>({
+    open: false,
+    title: '',
+    category: '',
+    date: '',
+    bucket: '',
+  });
   const {
     todos,
     errors: todoErrors,
-  }: { todos: Array<ICreateTodoParam>; errors: string } = props.todoReducer;
+    message: todoMessage,
+  }: { todos: Array<ICreateTodoParam>; errors: string; message: string } = props.todoReducer;
   const {
     buckets,
     errors: bucketErrors,
   }: { buckets: Array<IBuckets>; errors: string } = props.bucketReducer;
+  const clearState = () => {
+    setState({ ...state, title: '', category: '', date: '', bucket: '', open: false });
+  };
   const onHandleModal = () => {
     setState({ ...state, open: !state.open });
   };
@@ -48,6 +59,23 @@ const Todos: FC<Iprops> = (props) => {
     fetch();
     //eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    if (todoErrors || todoMessage) {
+      clearState();
+    }
+    //eslint-disable-next-line
+  }, [props.todoReducer]);
+  const onSelectCategory = (value: string) => {
+    if (value && value !== '') {
+      setState({ ...state, category: value });
+    }
+  };
+  const onSaveBucket = () => {
+    if (state.bucket && state.bucket != '') {
+      setState({ ...state, bucket: '' });
+      props.addBucket(state.bucket);
+    }
+  };
   return (
     <div className="todos">
       {state.open && (
@@ -57,37 +85,11 @@ const Todos: FC<Iprops> = (props) => {
           onSubmit={onSubmit}
           stateProps={state}
           buckets={buckets}
+          onAddBucket={onSaveBucket}
+          onSelectCategory={onSelectCategory}
         />
       )}
-      <div className="todo-header">
-        <div className="container">
-          <div className="user-info">
-            <div className="logo"></div>
-            <div className="name">Hi Clark!</div>
-          </div>
-          <div className="pending-task">
-            {todos && todos.length > 0 ? (
-              <Fragment>
-                You have 6 pending tasks <b>today</b>
-              </Fragment>
-            ) : (
-              <small className="bold f-13">no pending task available</small>
-            )}
-          </div>
-          <div className="buckets">
-            {buckets && buckets.length > 0 && (
-              <Fragment>
-                <div className="bold">Buckets</div>
-                <div className="categories">
-                  <div className="category">All</div>
-                  <div className="category">Chores</div>
-                  <div className="category">Material Study</div>
-                </div>
-              </Fragment>
-            )}
-          </div>
-        </div>
-      </div>
+      <TodoHeader todos={todos} buckets={buckets} />
       <ViewTodos onHandleModal={onHandleModal} todos={todos} />
     </div>
   );
