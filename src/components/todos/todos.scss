@@ -44,6 +44,39 @@
         .pending-task{
             font-size: 20px;
             margin-top: 1rem;
+            .pending{
+                display: flex;
+                .date-item{
+                    position: relative;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    .date{
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+                    .date::-webkit-datetime-edit {
+                        color: transparent;
+                        display: none;
+                        padding: none;
+                   }
+                  .date::-webkit-calendar-picker-indicator {
+                    width: 120px;
+                    margin-left: 0px;
+                  }
+                  .date-btn{
+                      border: none;
+                      background: none;
+                      color: $white;
+                      border-bottom: 2px solid $white;
+                      font-size: 20px;
+                      font-family: 'Open Sans', sans-serif;
+                      outline: none;
+                      box-shadow: none;
+                      min-width: 70px;
+                  }
+                }
+            }
         }
         .buckets{
             margin-top: 2rem;

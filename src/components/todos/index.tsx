@@ -4,7 +4,13 @@ import { IState } from './types';
 import './todos.scss';
 import CreateTodo from './add';
 import { connect, ConnectedProps } from 'react-redux';
-import { addTodo, viewAllTodos, markAsDone, filterByCategory } from '../../redux/todos/actions';
+import {
+  addTodo,
+  viewAllTodos,
+  markAsDone,
+  filterByCategory,
+  filterByDate,
+} from '../../redux/todos/actions';
 import { AppState } from '../../redux';
 import { ICreateTodoParam } from '../../redux/todos/types';
 import { viewAllBucket, addBucket } from '../../redux/buckets/actions';
@@ -21,6 +27,7 @@ const connector = connect(mapState, {
   addBucket,
   markAsDone,
   filterByCategory,
+  filterByDate,
 });
 type Iprops = ConnectedProps<typeof connector>;
 const Todos: FC<Iprops> = (props) => {
@@ -103,6 +110,9 @@ const Todos: FC<Iprops> = (props) => {
   const onViewAll = () => {
     props.viewAllTodos();
   };
+  const onFilterByDate = (date: Date) => {
+    props.filterByDate(date);
+  };
   return (
     <div className="todos">
       {state.open && (
@@ -121,6 +131,7 @@ const Todos: FC<Iprops> = (props) => {
         buckets={buckets}
         onFilterByCategory={onFilterByCategory}
         onViewAll={onViewAll}
+        onFilterByDate={onFilterByDate}
       />
       <ViewTodos onHandleModal={onHandleModal} todos={todos} onMarkAsDone={onMarkAsDone} />
     </div>

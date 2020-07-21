@@ -15,3 +15,8 @@ export const getItemsFromStorage = ({key}: {key: string})=>{
     const items = localStorage.getItem(key);
     return items;
 }
+export const convertDate = (value: string) => {
+    const date = new Date(value);
+    const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    return newDate;
+};

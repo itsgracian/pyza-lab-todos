@@ -1,25 +1,25 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, ChangeEvent } from 'react';
 import { IBuckets } from '../../redux/buckets/types';
 import { ICreateTodoParam } from '../../redux/todos/types';
+import { convertDate } from '../../redux/helpers/action';
+
 type Iprops = {
   buckets: IBuckets[];
   todos: ICreateTodoParam[];
   onFilterByCategory: (category: string) => void;
   onViewAll: () => void;
+  onFilterByDate: (date: Date) => void;
 };
 
 const TodoHeader = (props: Iprops) => {
-  const [state, setState] = useState<{ pendingTask: number }>({ pendingTask: 0 });
-  const { buckets, todos, onFilterByCategory, onViewAll } = props;
-  const convertDate = (value: string) => {
-    const date = new Date(value);
-    const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    return newDate;
-  };
+  const [state, setState] = useState<{ pendingTask: number; today: string }>({
+    pendingTask: 0,
+    today: `${new Date()}`,
+  });
+  const { buckets, todos, onFilterByCategory, onViewAll, onFilterByDate } = props;
   const onFindPendingTask = (data: Array<ICreateTodoParam>) => {
     const filter = data.filter(
-      (item) =>
-        item.done === false && convertDate(String(item.date)) === convertDate(String(new Date()))
+      (item) => item.done === false && convertDate(String(item.date)) === convertDate(state.today)
     );
     setState({ ...state, pendingTask: filter.length });
   };
@@ -27,6 +27,11 @@ const TodoHeader = (props: Iprops) => {
     onFindPendingTask(todos);
     //eslint-disable-next-line
   }, [todos]);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
+    onFilterByDate(new Date(value));
+  };
   return (
     <div className="todo-header">
       <div className="container">
@@ -36,10 +41,19 @@ const TodoHeader = (props: Iprops) => {
         </div>
         <div className="pending-task">
           {todos && todos.length > 0 ? (
-            <Fragment>
-              You have {state.pendingTask === 0 ? 'no' : state.pendingTask} pending tasks{' '}
-              <b>today</b>
-            </Fragment>
+            <div className="pending">
+              <div>You have {state.pendingTask === 0 ? 'no' : state.pendingTask} pending tasks</div>
+              <div className="date-item">
+                <input type="date" className="date" onChange={onChange} name="today" />
+                <button type="button" className="date-btn bold">
+                  {convertDate(String(state.today)) === convertDate(String(new Date())) ? (
+                    'today'
+                  ) : (
+                    <small className="bold">{new Date(state.today).toDateString()}</small>
+                  )}
+                </button>
+              </div>
+            </div>
           ) : (
             <small className="bold f-13">no pending task available</small>
           )}

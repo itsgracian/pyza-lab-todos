@@ -1,5 +1,5 @@
 import { CREATE, VIEW, ERRORS, ICreateTodoParam, TODOS, MARK_DONE } from './types';
-import { actionHandler, storeItems, getItemsFromStorage } from '../helpers/action';
+import { actionHandler, storeItems, getItemsFromStorage, convertDate } from '../helpers/action';
 import { AppThunk } from '../index';
 
 
@@ -51,6 +51,17 @@ export const filterByCategory = (category: string):AppThunk=>(dispatch)=>{
     const convert:Array<ICreateTodoParam>= JSON.parse(data);
     if(convert && convert.length>0){
       const filter = convert.filter(item=>item.category === category);
+     dispatch({type: VIEW, payload: filter});
+    }
+  }});
+};
+
+export const filterByDate = (date: Date):AppThunk=>(dispatch)=>{
+  actionHandler({errorType:ERRORS, data:null, dispatch, cb:()=>{
+    const data: any = getItemsFromStorage({key: TODOS});
+    const convert:Array<ICreateTodoParam>= JSON.parse(data);
+    if(convert && convert.length>0){
+      const filter = convert.filter(item=>convertDate(String(item.date)) === convertDate(String(date)));
      dispatch({type: VIEW, payload: filter});
     }
   }});
