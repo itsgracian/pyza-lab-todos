@@ -1,4 +1,4 @@
-import { CREATE, VIEW, ERRORS, ITodoTypes, IinitialState } from './types';
+import { CREATE, VIEW, ERRORS, ITodoTypes, IinitialState, MARK_DONE } from './types';
 
 const initialState: IinitialState= {
     todos:[], message: null, errors: null
@@ -7,6 +7,7 @@ const initialState: IinitialState= {
 export const todoReducer = (state=initialState, {type, payload}:ITodoTypes)=>{
     switch(type){
         case CREATE:
+        case MARK_DONE:
             return {...state, message: payload};
         case VIEW:
             return {...state, todos:payload };

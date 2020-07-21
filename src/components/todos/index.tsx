@@ -4,7 +4,7 @@ import { IState } from './types';
 import './todos.scss';
 import CreateTodo from './add';
 import { connect, ConnectedProps } from 'react-redux';
-import { addTodo, viewAllTodos } from '../../redux/todos/actions';
+import { addTodo, viewAllTodos, markAsDone } from '../../redux/todos/actions';
 import { AppState } from '../../redux';
 import { ICreateTodoParam } from '../../redux/todos/types';
 import { viewAllBucket, addBucket } from '../../redux/buckets/actions';
@@ -14,7 +14,13 @@ const mapState = (state: AppState) => ({
   todoReducer: state.todos,
   bucketReducer: state.buckets,
 });
-const connector = connect(mapState, { addTodo, viewAllTodos, viewAllBucket, addBucket });
+const connector = connect(mapState, {
+  addTodo,
+  viewAllTodos,
+  viewAllBucket,
+  addBucket,
+  markAsDone,
+});
 type Iprops = ConnectedProps<typeof connector>;
 const Todos: FC<Iprops> = (props) => {
   const [state, setState] = useState<IState>({
@@ -85,6 +91,10 @@ const Todos: FC<Iprops> = (props) => {
       props.addBucket(state.bucket);
     }
   };
+
+  const onMarkAsDone = (id: string) => {
+    props.markAsDone(id);
+  };
   return (
     <div className="todos">
       {state.open && (
@@ -99,7 +109,7 @@ const Todos: FC<Iprops> = (props) => {
         />
       )}
       <TodoHeader todos={todos} buckets={buckets} />
-      <ViewTodos onHandleModal={onHandleModal} todos={todos} />
+      <ViewTodos onHandleModal={onHandleModal} todos={todos} onMarkAsDone={onMarkAsDone} />
     </div>
   );
 };

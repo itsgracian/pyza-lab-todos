@@ -5,9 +5,10 @@ import { AiOutlineFrown } from 'react-icons/ai';
 type Iprops = {
   onHandleModal: () => void;
   todos: Array<ICreateTodoParam>;
+  onMarkAsDone: (id: string) => void;
 };
 const ViewTodos = (props: Iprops) => {
-  const { onHandleModal, todos } = props;
+  const { onHandleModal, todos, onMarkAsDone } = props;
   return (
     <div className="view-todos">
       <div className="todo-items">
@@ -24,7 +25,7 @@ const ViewTodos = (props: Iprops) => {
                   <div className="category-name">{item.category}</div>
                 </div>
                 <div className="accept">
-                  <div className="icon">
+                  <div className="icon" onClick={() => onMarkAsDone(item.id)}>
                     {item.done && <img src={accept} alt={accept} />}
                   </div>
                 </div>

@@ -2,6 +2,7 @@ export const CREATE = 'ADD_TODO';
 export const VIEW = 'VIEW_ALL_TODOS';
 export const ERRORS = 'TODO_ERRORS';
 export const TODOS = 'TODOS';
+export const MARK_DONE = 'MARK_TODO_AS_DONE';
 export interface ICreateTodoParam{
     title: string;
     id: string;
@@ -27,10 +28,13 @@ interface IErrors {
         errors: string;
     }
 }
-
+interface IMarkDone{
+    type: typeof MARK_DONE;
+    payload: string;
+}
 export interface IinitialState{
     todos: Array<ICreateTodoParam>;
     message: string | null;
     errors: string | null;
 }
-export type ITodoTypes = ICreate | IView | IErrors;
+export type ITodoTypes = ICreate | IView | IErrors | IMarkDone;
