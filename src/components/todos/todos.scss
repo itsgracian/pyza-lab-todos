@@ -311,3 +311,41 @@
         color: $white !important;
     }
 }
+
+@media screen and (max-width: 768px){
+    .todos{
+        .container{
+            width: 80%;
+        }
+        .todo-header{
+            .pending-task{
+                .pending{
+                    flex-direction: column;
+                    .date-item{
+                        margin-left: 0px;
+                    }
+                }
+            }
+        }
+        .view-todos{
+            margin-top: 0;
+            .todo-items{
+                width: 90%;
+            }
+        }
+        .todo-modal{
+            .m-body{
+                width: 75%;
+                margin: auto;
+                .todo-form{
+                    .new-bucket{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .not-found{
+            width: auto;
+        }
+    }
+}

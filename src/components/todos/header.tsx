@@ -18,10 +18,12 @@ const TodoHeader = (props: Iprops) => {
   });
   const { buckets, todos, onFilterByCategory, onViewAll, onFilterByDate } = props;
   const onFindPendingTask = (data: Array<ICreateTodoParam>) => {
-    const filter = data.filter(
-      (item) => item.done === false && convertDate(String(item.date)) === convertDate(state.today)
-    );
-    setState({ ...state, pendingTask: filter.length });
+    if(data && data.length>0){
+      const filter = data.filter(
+        (item) => item.done === false && convertDate(String(item.date)) === convertDate(state.today)
+      );
+      setState({ ...state, pendingTask: filter.length });
+    }
   };
   useEffect(() => {
     onFindPendingTask(todos);
