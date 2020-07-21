@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { IBuckets } from '../../redux/buckets/types';
 import { ICreateTodoParam } from '../../redux/todos/types';
 type Iprops = {
@@ -9,7 +9,24 @@ type Iprops = {
 };
 
 const TodoHeader = (props: Iprops) => {
+  const [state, setState] = useState<{ pendingTask: number }>({ pendingTask: 0 });
   const { buckets, todos, onFilterByCategory, onViewAll } = props;
+  const convertDate = (value: string) => {
+    const date = new Date(value);
+    const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    return newDate;
+  };
+  const onFindPendingTask = (data: Array<ICreateTodoParam>) => {
+    const filter = data.filter(
+      (item) =>
+        item.done === false && convertDate(String(item.date)) === convertDate(String(new Date()))
+    );
+    setState({ ...state, pendingTask: filter.length });
+  };
+  useEffect(() => {
+    onFindPendingTask(todos);
+    //eslint-disable-next-line
+  }, [todos]);
   return (
     <div className="todo-header">
       <div className="container">
@@ -20,7 +37,8 @@ const TodoHeader = (props: Iprops) => {
         <div className="pending-task">
           {todos && todos.length > 0 ? (
             <Fragment>
-              You have 6 pending tasks <b>today</b>
+              You have {state.pendingTask === 0 ? 'no' : state.pendingTask} pending tasks{' '}
+              <b>today</b>
             </Fragment>
           ) : (
             <small className="bold f-13">no pending task available</small>
